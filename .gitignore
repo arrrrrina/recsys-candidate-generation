@@ -1,0 +1,27 @@
+# Virtual environments
+venv/
+.venv/
+
+# Datasets
+dataset/
+*.parquet
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE and macOS
+.vscode/
+.idea/
+.DS_Store
+
+# Generated artifacts
+answer.csv
+outputs/
+models/
