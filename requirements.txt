@@ -1,8 +1,16 @@
 numpy
 pandas
 pyarrow
+scipy
+joblib
 scikit-learn
 sentence-transformers
+torch
 jupyterlab
+ipywidgets
 pytest
 faiss-cpu
+bm25s
+PyStemmer
+datasets
+accelerate

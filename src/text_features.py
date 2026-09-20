@@ -1,34 +1,24 @@
-import pandas as pd
-
-# Подготавливает запрос и его параметры для энкодера, Nan заменяет пустой строкой
 def build_query_text(data):
-    query = data["search_query"].fillna("")
-    params = data["search_infm_params_text"].fillna("")
+    # бъединяет текст запроса и выбранные пользователем фильтры.
+    query = data["search_query"].fillna("").astype(str)
+    params = data["search_infm_params_text"].fillna("").astype(str)
+    return (query + " " + params).str.strip()
 
-    return query + " " + params
 
-# Подготавливает запрос и его параметры для энкодера, Nan заменяет пустой строкой
-def build_item_text(data):
-    title = data["item_title_raw"].fillna("")
-    params = data["item_infm_params_text"].fillna("")
-    description = data["item_description_raw"].fillna("")
-
-    return title + " " + params + " " + description
-# Для TF-IDF
 def build_lexical_item_text(data):
-    title = data["item_title_raw"].fillna("")
-    params = data["item_infm_params_text"].fillna("")
+    # Короткий текст объявления для лексического TF-IDF-поиска.
+    title = data["item_title_raw"].fillna("").astype(str)
+    params = data["item_infm_params_text"].fillna("").astype(str)
+    return (title + " " + params).str.strip()
 
-    return title + " " + params
-# Для Е5
-def build_semantic_item_text(data):
-    title = data["item_title_raw"].fillna("")
-    params = data["item_infm_params_text"].fillna("")
 
-    description = (
-        data["item_description_raw"]
-        .fillna("")
-        .str[:500]
-    )
+def build_semantic_item_text(data, description_limit=500):
+    # Текст объявления для E5 с ограниченным описаниtv.
+    title = data["item_title_raw"].fillna("").astype(str)
+    params = data["item_infm_params_text"].fillna("").astype(str)
+    description = data["item_description_raw"].fillna("").astype(str).str[:description_limit]
+    return (title + " " + params + " " + description).str.strip()
 
-    return title + " " + params + " " + description
+
+def build_item_text(data):
+    return build_semantic_item_text(data, description_limit=None)
